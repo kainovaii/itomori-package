@@ -9,18 +9,6 @@ class Db extends PDO
 {
     private static $instance;
 
-    private const DBHOST = 'sql-frweb10.pulseheberg.net';
-    private const DBUSER = 'sysadmin';
-    private const DBPASS = '07072004E';
-    private const DBNAME = 'sp-main';
-
-    /*
-    private const DBHOST = 'localhost';
-    private const DBUSER = 'root';
-    private const DBPASS = 'root';
-    private const DBNAME = 'cest-une-pie-encule';
-    */
-
     /**
      * __construct.
      *
@@ -28,10 +16,10 @@ class Db extends PDO
      */
     private function __construct()
     {
-        $_dsn = 'mysql:dbname='.self::DBNAME.';host='.self::DBHOST;
+        $_dsn = 'mysql:dbname='.$_ENV['DB_NAME'].';host='.$_ENV['DB_HOST'];
 
         try {
-            parent::__construct($_dsn, self::DBUSER, self::DBPASS);
+            parent::__construct($_dsn, $_ENV['DB_USER'], $_ENV['DB_PASS']);
 
             $this->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, 'SET NAMES utf8');
             $this->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);

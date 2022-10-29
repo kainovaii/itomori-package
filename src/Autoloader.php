@@ -2,6 +2,7 @@
 
 namespace Itomori;
 
+use Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;
 
 class Autoloader
@@ -22,6 +23,9 @@ class Autoloader
         require_once ROOT2.'/vendor/symfony/error-handler/Debug.php';
         require_once ROOT2.'/vendor/twig/twig/src/Environment.php';
         require_once ROOT2.'/vendor/twig/twig/src/Loader/FilesystemLoader.php';
+
+        $dotenv = Dotenv::createImmutable(dirname(__FILE__, 5));
+        $dotenv->safeLoad();
 
         Debug::enable();
 

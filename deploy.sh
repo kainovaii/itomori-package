@@ -7,7 +7,7 @@ if [ $TYPE ]; then
         read -p "⚡️ Enter text: " TEXT
         git add --all
         git commit -m "🛠️ Fix ($TEXT)"
-        git push -u origin main
+        git push -u origin master
         echo "⚡️ Task complete"
     fi
 
@@ -15,7 +15,7 @@ if [ $TYPE ]; then
         read -p "⚡️ Enter text: " TEXT
         git add --all
         git commit -m "📦️ Update ($TEXT)"
-        git push -u origin main
+        git push -u origin master
         echo "⚡️ Task complete"
     fi
 
@@ -23,7 +23,7 @@ if [ $TYPE ]; then
         read -p "⚡️ Enter text: " TEXT
         git add --all
         git commit -m "🌐 Production"
-        git push -u origin main
+        git push -u origin master
         echo "⚡️ Task complete"
     fi
 
@@ -35,7 +35,7 @@ if [ $TYPE ]; then
         git branch -M main
         git remote remove origin
         git remote add origin https://github.com/"$NAME".git
-        git push -u origin main
+        git push -u origin master
         echo "⚡️ Task complete"
     fi
 else
