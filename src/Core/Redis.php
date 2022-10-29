@@ -17,7 +17,7 @@ class Redis
      *
      * @return void
      */
-    public function __construct(string $url = '51.75.78.191', int $port = 6379, string $role = 'master')
+    public function __construct(string $url = '127.0.0.1', int $port = 6379, string $role = 'master')
     {
         $this->client = new Client('tcp://'.$url.':'.$port.'?role='.$role);
     }
