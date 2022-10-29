@@ -27,7 +27,7 @@ class Itomori extends Console
 
                     fwrite($myfile, "<?php
 
-use Itomori\Core\Controller;
+namespace App\src\Http\Controllers;
 
 use Itomori\Core\Controller;
 
@@ -53,7 +53,7 @@ namespace App\src\Models;
 
 use Itomori\Core\Model;
 
-class SampleModel extends Model
+class ".$fileName." extends Model
 {
     protected \$id;
 
