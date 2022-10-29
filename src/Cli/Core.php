@@ -2,10 +2,6 @@
 
 namespace Itomori\Cli;
 
-require_once 'Colors.php';
-require_once 'Exception.php';
-require_once 'Options.php';
-
 abstract class Core
 {
     /** @var string the executed script itself */

@@ -2,8 +2,6 @@
 
 namespace Itomori\Cli;
 
-require_once 'Core.php';
-
 abstract class Console extends Core
 {
     /**

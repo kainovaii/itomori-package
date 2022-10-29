@@ -16,10 +16,12 @@ class Autoloader
 
     public static function autoload($class)
     {
-        require_once ROOT.'/vendor/autoload.php';
-        require_once ROOT.'/vendor/symfony/error-handler/Debug.php';
-        require_once ROOT.'/vendor/twig/twig/src/Environment.php';
-        require_once ROOT.'/vendor/twig/twig/src/Loader/FilesystemLoader.php';
+        define('ROOT2', dirname(__FILE__, 5));
+
+        require_once ROOT2.'/vendor/autoload.php';
+        require_once ROOT2.'/vendor/symfony/error-handler/Debug.php';
+        require_once ROOT2.'/vendor/twig/twig/src/Environment.php';
+        require_once ROOT2.'/vendor/twig/twig/src/Loader/FilesystemLoader.php';
 
         Debug::enable();
 

@@ -2,8 +2,6 @@
 
 namespace Itomori\Cli;
 
-require_once 'TableFormatter.php';
-
 class Options
 {
     /** @var array keeps the list of options to parse */
