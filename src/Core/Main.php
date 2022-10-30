@@ -3,6 +3,7 @@
 namespace Itomori\Core;
 
 use App\src\Routes\Web;
+use Symfony\Component\ErrorHandler\Debug;
 
 class Main
 {
@@ -11,6 +12,7 @@ class Main
     public function __construct($constant)
     {
         $this->root = $constant;
+        Debug::enable();
     }
 
     public function start()
