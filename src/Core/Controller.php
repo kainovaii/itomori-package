@@ -46,12 +46,8 @@ abstract class Controller
      */
     public function render(string $file, array $data = [])
     {
-        $session = new Session();
-
-        if (isset($_SESSION['USER_TOKEN'])) {
-            $registered = $session->get($_SESSION['USER_TOKEN']);
-
-            echo $this->twig->render($file.'.html.twig', $data + ['session' => $registered]);
+        if (isset($_SESSION['USER'])) {
+            echo $this->twig->render($file.'.html.twig', $data + ['session' => $_SESSION['USER']]);
         } else {
             echo $this->twig->render($file.'.html.twig', $data);
         }
