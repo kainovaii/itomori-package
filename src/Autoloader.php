@@ -3,7 +3,6 @@
 namespace Itomori;
 
 use Dotenv\Dotenv;
-use Symfony\Component\ErrorHandler\Debug;
 
 class Autoloader
 {
@@ -17,17 +16,13 @@ class Autoloader
 
     public static function autoload($class)
     {
-        define('ROOT2', dirname(__FILE__, 5));
-
-        require_once ROOT2.'/vendor/autoload.php';
-        require_once ROOT2.'/vendor/symfony/error-handler/Debug.php';
-        require_once ROOT2.'/vendor/twig/twig/src/Environment.php';
-        require_once ROOT2.'/vendor/twig/twig/src/Loader/FilesystemLoader.php';
+        require_once ROOT.'/vendor/autoload.php';
+        require_once ROOT.'/vendor/symfony/error-handler/Debug.php';
+        require_once ROOT.'/vendor/twig/twig/src/Environment.php';
+        require_once ROOT.'/vendor/twig/twig/src/Loader/FilesystemLoader.php';
 
         $dotenv = Dotenv::createImmutable(dirname(__FILE__, 5));
         $dotenv->safeLoad();
-
-        Debug::enable();
 
         $class = str_replace(__NAMESPACE__.'\\', '', $class);
         $class = str_replace('\\', '/', $class);

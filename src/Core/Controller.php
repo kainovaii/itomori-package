@@ -5,6 +5,7 @@ namespace Itomori\Core;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Itomori\Autoloader;
+use Symfony\Component\ErrorHandler\Debug;
 
 abstract class Controller
 {
@@ -28,6 +29,8 @@ abstract class Controller
         require_once dirname(__FILE__, 2).'\Autoloader.php';
 
         Autoloader::register();
+
+        Debug::enable();
 
         $this->loader = new FileSystemLoader(ROOT.'/src/Views/');
 

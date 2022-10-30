@@ -17,6 +17,7 @@ class Main
     {
         require_once $this->root.'/src/routes/Web.php';
         require_once 'Router.php';
+
         // Init session
         session_start();
 
