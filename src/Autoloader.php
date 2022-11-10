@@ -1,8 +1,9 @@
 <?php
 
-namespace Itomori;
+namespace Obsidian;
 
 use Dotenv\Dotenv;
+use Symfony\Component\ErrorHandler\Debug;
 
 class Autoloader
 {
@@ -23,6 +24,8 @@ class Autoloader
 
         $dotenv = Dotenv::createImmutable(dirname(__FILE__, 5));
         $dotenv->safeLoad();
+
+        Debug::enable();
 
         $class = str_replace(__NAMESPACE__.'\\', '', $class);
         $class = str_replace('\\', '/', $class);

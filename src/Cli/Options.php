@@ -1,6 +1,6 @@
 <?php
 
-namespace Itomori\Cli;
+namespace Obsidian\Cli;
 
 class Options
 {

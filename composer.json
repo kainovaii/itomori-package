@@ -1,12 +1,12 @@
 {
-    "name": "kainovaii/itomori",
+    "name": "itomori/obsidian",
     "type": "library",
     "license": "MIT",
     "version": "1.0.1",
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
-            "Itomori\\": "src/"
+            "Obsidian\\": "src/"
         }
     },
     "authors": [

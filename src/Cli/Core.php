@@ -1,6 +1,6 @@
 <?php
 
-namespace Itomori\Cli;
+namespace Obsidian\Cli;
 
 abstract class Core
 {

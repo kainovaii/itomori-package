@@ -1,6 +1,6 @@
 <?php
 
-namespace Itomori\Core;
+namespace Obsidian\Core;
 
 require_once 'Controller.php';
 
@@ -9,37 +9,37 @@ class Router extends Controller
     /**
      * @var mixed afterRoutes
      */
-    private $afterRoutes = [];
+    private static $afterRoutes = [];
 
     /**
      * @var mixed beforeRoutes
      */
-    private $beforeRoutes = [];
+    private static $beforeRoutes = [];
 
     /**
      * @var mixed notFoundCallback
      */
-    protected $notFoundCallback = [];
+    protected static $notFoundCallback = [];
 
     /**
      * @var mixed baseRoute
      */
-    private $baseRoute = '';
+    private static $baseRoute = '';
 
     /**
      * @var mixed requestedMethod
      */
-    private $requestedMethod = '';
+    private static $requestedMethod = '';
 
     /**
      * @var mixed serverBasePath
      */
-    private $serverBasePath;
+    private static $serverBasePath;
 
     /**
      * @var mixed namespace
      */
-    private $namespace = '';
+    private static $namespace = '';
 
     /**
      * before.
@@ -50,13 +50,13 @@ class Router extends Controller
      *
      * @return void
      */
-    public function before($methods, $pattern, $fn)
+    public static function before($methods, $pattern, $fn)
     {
-        $pattern = $this->baseRoute.'/'.trim($pattern, '/');
-        $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
+        $pattern = self::$baseRoute.'/'.trim($pattern, '/');
+        $pattern = self::$baseRoute ? rtrim($pattern, '/') : $pattern;
 
         foreach (explode('|', $methods) as $method) {
-            $this->beforeRoutes[$method][] = [
+            self::$beforeRoutes[$method][] = [
                 'pattern' => $pattern,
                 'fn' => $fn,
             ];
@@ -72,13 +72,13 @@ class Router extends Controller
      *
      * @return void
      */
-    public function match($methods, $pattern, $fn)
+    public static function match($methods, $pattern, $fn)
     {
-        $pattern = $this->baseRoute.'/'.trim($pattern, '/');
-        $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
+        $pattern = self::$baseRoute.'/'.trim($pattern, '/');
+        $pattern = self::$baseRoute ? rtrim($pattern, '/') : $pattern;
 
         foreach (explode('|', $methods) as $method) {
-            $this->afterRoutes[$method][] = [
+            self::$afterRoutes[$method][] = [
                 'pattern' => $pattern,
                 'fn' => $fn,
             ];
@@ -93,9 +93,9 @@ class Router extends Controller
      *
      * @return void
      */
-    public function all($pattern, $fn)
+    public static function all($pattern, $fn)
     {
-        $this->match('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', $pattern, $fn);
+        self::match('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', $pattern, $fn);
     }
 
     /**
@@ -106,9 +106,9 @@ class Router extends Controller
      *
      * @return void
      */
-    public function get($pattern, $fn)
+    public static function get($pattern, $fn)
     {
-        $this->match('GET', $pattern, $fn);
+        self::match('GET', $pattern, $fn);
     }
 
     /**
@@ -119,9 +119,9 @@ class Router extends Controller
      *
      * @return void
      */
-    public function post($pattern, $fn)
+    public static function post($pattern, $fn)
     {
-        $this->match('POST', $pattern, $fn);
+        self::match('POST', $pattern, $fn);
     }
 
     /**
@@ -132,9 +132,9 @@ class Router extends Controller
      *
      * @return void
      */
-    public function patch($pattern, $fn)
+    public static function patch($pattern, $fn)
     {
-        $this->match('PATCH', $pattern, $fn);
+        self::match('PATCH', $pattern, $fn);
     }
 
     /**
@@ -145,9 +145,9 @@ class Router extends Controller
      *
      * @return void
      */
-    public function delete($pattern, $fn)
+    public static function delete($pattern, $fn)
     {
-        $this->match('DELETE', $pattern, $fn);
+        self::match('DELETE', $pattern, $fn);
     }
 
     /**
@@ -158,9 +158,9 @@ class Router extends Controller
      *
      * @return void
      */
-    public function put($pattern, $fn)
+    public static function put($pattern, $fn)
     {
-        $this->match('PUT', $pattern, $fn);
+        self::match('PUT', $pattern, $fn);
     }
 
     /**
@@ -171,9 +171,9 @@ class Router extends Controller
      *
      * @return void
      */
-    public function options($pattern, $fn)
+    public static function options($pattern, $fn)
     {
-        $this->match('OPTIONS', $pattern, $fn);
+        self::match('OPTIONS', $pattern, $fn);
     }
 
     /**
@@ -184,15 +184,15 @@ class Router extends Controller
      *
      * @return void
      */
-    public function mount($baseRoute, $fn)
+    public static function mount($baseRoute, $fn)
     {
-        $curBaseRoute = $this->baseRoute;
+        $curBaseRoute = self::$baseRoute;
 
-        $this->baseRoute .= $baseRoute;
+        self::$baseRoute .= $baseRoute;
 
         call_user_func($fn);
 
-        $this->baseRoute = $curBaseRoute;
+        self::$baseRoute = $curBaseRoute;
     }
 
     /**
@@ -200,7 +200,7 @@ class Router extends Controller
      *
      * @return void
      */
-    public function getRequestHeaders()
+    public static function getRequestHeaders()
     {
         $headers = [];
 
@@ -226,7 +226,7 @@ class Router extends Controller
      *
      * @return void
      */
-    public function getRequestMethod()
+    public static function getRequestMethod()
     {
         $method = $_SERVER['REQUEST_METHOD'];
 
@@ -234,7 +234,7 @@ class Router extends Controller
             ob_start();
             $method = 'GET';
         } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $headers = $this->getRequestHeaders();
+            $headers = self::getRequestHeaders();
             if (isset($headers['X-HTTP-Method-Override']) && in_array($headers['X-HTTP-Method-Override'], ['PUT', 'DELETE', 'PATCH'])) {
                 $method = $headers['X-HTTP-Method-Override'];
             }
@@ -250,10 +250,10 @@ class Router extends Controller
      *
      * @return void
      */
-    public function setNamespace($namespace)
+    public static function setNamespace($namespace)
     {
         if (is_string($namespace)) {
-            $this->namespace = $namespace;
+            self::$namespace = $namespace;
         }
     }
 
@@ -274,22 +274,22 @@ class Router extends Controller
      *
      * @return void
      */
-    public function run($callback = null)
+    public static function run($callback = null)
     {
-        $this->requestedMethod = $this->getRequestMethod();
+        self::$requestedMethod = self::getRequestMethod();
 
-        if (isset($this->beforeRoutes[$this->requestedMethod])) {
-            $this->handle($this->beforeRoutes[$this->requestedMethod]);
+        if (isset(self::$beforeRoutes[self::$requestedMethod])) {
+            self::handle(self::$beforeRoutes[self::$requestedMethod]);
         }
 
         $numHandled = 0;
-        if (isset($this->afterRoutes[$this->requestedMethod])) {
-            $numHandled = $this->handle($this->afterRoutes[$this->requestedMethod], true);
+        if (isset(self::$afterRoutes[self::$requestedMethod])) {
+            $numHandled = self::handle(self::$afterRoutes[self::$requestedMethod], true);
         }
 
         if ($numHandled === 0) {
-            if (isset($this->afterRoutes[$this->requestedMethod])) {
-                $this->render('error/404');
+            if (isset(self::$afterRoutes[self::$requestedMethod])) {
+                echo '404';
             }
         } elseif ($callback && is_callable($callback)) {
             $callback();
@@ -310,12 +310,12 @@ class Router extends Controller
      *
      * @return void
      */
-    public function set404($match_fn, $fn = null)
+    public static function set404($match_fn, $fn = null)
     {
         if (!is_null($fn)) {
-            $this->notFoundCallback[$match_fn] = $fn;
+            self::$notFoundCallback[$match_fn] = $fn;
         } else {
-            $this->notFoundCallback['/'] = $match_fn;
+            self::$notFoundCallback['/'] = $match_fn;
         }
     }
 
@@ -326,15 +326,15 @@ class Router extends Controller
      *
      * @return void
      */
-    public function trigger404($match = null)
+    public static function trigger404($match = null)
     {
         $numHandled = 0;
 
-        if (count($this->notFoundCallback) > 0) {
-            foreach ($this->notFoundCallback as $route_pattern => $route_callable) {
+        if (count(self::$notFoundCallback) > 0) {
+            foreach (self::$notFoundCallback as $route_pattern => $route_callable) {
                 $matches = [];
 
-                $is_match = $this->patternMatches($route_pattern, $this->getCurrentUri(), $matches, PREG_OFFSET_CAPTURE);
+                $is_match = self::patternMatches($route_pattern, self::getCurrentUri(), $matches, PREG_OFFSET_CAPTURE);
 
                 if ($is_match) {
                     $matches = array_slice($matches, 1);
@@ -349,14 +349,14 @@ class Router extends Controller
                         return isset($match[0][0]) && $match[0][1] != -1 ? trim($match[0][0], '/') : null;
                     }, $matches, array_keys($matches));
 
-                    $this->invoke($route_callable);
+                    self::invoke($route_callable);
 
                     ++$numHandled;
                 }
             }
         }
-        if (($numHandled == 0) && (isset($this->notFoundCallback['/']))) {
-            $this->invoke($this->notFoundCallback['/']);
+        if (($numHandled == 0) && (isset(self::$notFoundCallback['/']))) {
+            self::invoke(self::$notFoundCallback['/']);
         } elseif ($numHandled == 0) {
             header($_SERVER['SERVER_PROTOCOL'].' 404 Not Found');
         }
@@ -372,7 +372,7 @@ class Router extends Controller
      *
      * @return void
      */
-    private function patternMatches($pattern, $uri, &$matches, $flags)
+    private static function patternMatches($pattern, $uri, &$matches, $flags)
     {
         $pattern = preg_replace('/\/{(.*?)}/', '/(.*?)', $pattern);
 
@@ -387,14 +387,14 @@ class Router extends Controller
      *
      * @return void
      */
-    private function handle($routes, $quitAfterRun = false)
+    private static function handle($routes, $quitAfterRun = false)
     {
         $numHandled = 0;
 
-        $uri = $this->getCurrentUri();
+        $uri = self::getCurrentUri();
 
         foreach ($routes as $route) {
-            $is_match = $this->patternMatches($route['pattern'], $uri, $matches, PREG_OFFSET_CAPTURE);
+            $is_match = self::patternMatches($route['pattern'], $uri, $matches, PREG_OFFSET_CAPTURE);
 
             if ($is_match) {
                 $matches = array_slice($matches, 1);
@@ -409,7 +409,7 @@ class Router extends Controller
                     return isset($match[0][0]) && $match[0][1] != -1 ? trim($match[0][0], '/') : null;
                 }, $matches, array_keys($matches));
 
-                $this->invoke($route['fn'], $params);
+                self::invoke($route['fn'], $params);
 
                 ++$numHandled;
 
@@ -430,15 +430,15 @@ class Router extends Controller
      *
      * @return void
      */
-    private function invoke($fn, $params = [])
+    private static function invoke($fn, $params = [])
     {
         if (is_callable($fn)) {
             call_user_func_array($fn, $params);
         } elseif (stripos($fn, '@') !== false) {
             list($controller, $method) = explode('@', $fn);
 
-            if ($this->getNamespace() !== '') {
-                $controller = $this->getNamespace().'\\'.$controller;
+            if (self::getNamespace() !== '') {
+                $controller = self::getNamespace().'\\'.$controller;
             }
 
             try {
@@ -464,9 +464,9 @@ class Router extends Controller
      *
      * @return void
      */
-    public function getCurrentUri()
+    public static function getCurrentUri()
     {
-        $uri = substr(rawurldecode($_SERVER['REQUEST_URI']), strlen($this->getBasePath()));
+        $uri = substr(rawurldecode($_SERVER['REQUEST_URI']), strlen(self::getBasePath()));
 
         if (strstr($uri, '?')) {
             $uri = substr($uri, 0, strpos($uri, '?'));
@@ -480,17 +480,17 @@ class Router extends Controller
      *
      * @return void
      */
-    public function getBasePath()
+    public static function getBasePath()
     {
-        if ($this->serverBasePath === null) {
-            $this->serverBasePath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)).'/';
+        if (self::$serverBasePath === null) {
+            self::$serverBasePath = implode('/', array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)).'/';
         }
 
-        return $this->serverBasePath;
+        return self::$serverBasePath;
     }
 
-    public function setBasePath($serverBasePath)
+    public static function setBasePath($serverBasePath)
     {
-        $this->serverBasePath = $serverBasePath;
+        self::$serverBasePath = $serverBasePath;
     }
 }

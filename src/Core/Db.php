@@ -1,6 +1,6 @@
 <?php
 
-namespace Itomori\Core;
+namespace Obsidian\Core;
 
 use PDO;
 use PDOException;

@@ -1,10 +1,10 @@
 <?php
 
-namespace Itomori\Core;
+namespace Obsidian\Core;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
-use Itomori\Autoloader;
+use Obsidian\Autoloader;
 use Symfony\Component\ErrorHandler\Debug;
 
 abstract class Controller
@@ -12,12 +12,12 @@ abstract class Controller
     /**
      * @var mixed loader
      */
-    private $loader;
+    protected static $loader;
 
     /**
      * @var mixed twig
      */
-    protected $twig;
+    protected static $twig;
 
     /**
      * __construct.
@@ -32,9 +32,9 @@ abstract class Controller
 
         Debug::enable();
 
-        $this->loader = new FileSystemLoader(ROOT.'/src/Views/');
+        self::$loader = new FileSystemLoader(ROOT.'/src/Views/');
 
-        $this->twig = new Environment($this->loader, [
+        self::$twig = new Environment(self::$loader, [
             //'cache' => ROOT.'/src/Cache',
         ]);
     }
@@ -47,12 +47,8 @@ abstract class Controller
      *
      * @return void
      */
-    public function render(string $file, array $data = [])
+    public function view(string $file, array $data = [])
     {
-        if (isset($_SESSION['USER'])) {
-            echo $this->twig->render($file.'.html.twig', $data + ['session' => $_SESSION['USER']]);
-        } else {
-            echo $this->twig->render($file.'.html.twig', $data);
-        }
+        echo self::$twig->render($file.'.html.twig', $data);
     }
 }
