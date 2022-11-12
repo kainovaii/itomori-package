@@ -1,6 +1,6 @@
 <?php
 
-namespace Obsidian\Cli;
+namespace Obsidian\Console;
 
 class TableFormatter
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Obsidian\Cli;
+namespace Obsidian\Console;
 
 class Options
 {
@@ -94,18 +94,16 @@ class Options
     }
 
     /**
-     * Register the names of arguments for help generation and number checking.
+     * setArg.
      *
-     * This has to be called in the order arguments are expected
+     * @param mixed arg
+     * @param mixed help
+     * @param mixed required
+     * @param mixed command
      *
-     * @param string $arg      argument name (just for help)
-     * @param string $help     help text
-     * @param bool   $required is this a required argument
-     * @param string $command  if theses apply to a sub command only
-     *
-     * @throws Exception
+     * @return void
      */
-    public function registerArgument($arg, $help, $required = true, $command = '')
+    public function setArg($arg, $help, $required = true, $command = '')
     {
         if (!isset($this->setup[$command])) {
             throw new Exception("Command $command not registered");
@@ -119,16 +117,14 @@ class Options
     }
 
     /**
-     * This registers a sub command.
+     * setCommand.
      *
-     * Sub commands have their own options and use their own function (not main()).
+     * @param mixed command
+     * @param mixed help
      *
-     * @param string $command
-     * @param string $help
-     *
-     * @throws Exception
+     * @return void
      */
-    public function registerCommand($command, $help)
+    public function setCommand($command, $help)
     {
         if (isset($this->setup[$command])) {
             throw new Exception("Command $command already registered");
@@ -142,17 +138,17 @@ class Options
     }
 
     /**
-     * Register an option for option parsing and help generation.
+     * setOption.
      *
-     * @param string      $long     multi character option (specified with --)
-     * @param string      $help     help text for this option
-     * @param string|null $short    one character option (specified with -)
-     * @param bool|string $needsarg does this option require an argument? give it a name here
-     * @param string      $command  what command does this option apply to
+     * @param mixed long
+     * @param mixed help
+     * @param mixed short
+     * @param mixed needsarg
+     * @param mixed command
      *
-     * @throws Exception
+     * @return void
      */
-    public function registerOption($long, $help, $short = null, $needsarg = false, $command = '')
+    public function setOption($long, $help, $short = null, $needsarg = false, $command = '')
     {
         if (!isset($this->setup[$command])) {
             throw new Exception("Command $command not registered");
@@ -493,5 +489,14 @@ class Options
         }
 
         return $argv;
+    }
+
+    public function isOption($option)
+    {
+        if (array_key_exists($option, $this->getOpt())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

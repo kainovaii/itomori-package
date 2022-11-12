@@ -17,12 +17,14 @@ class Autoloader
 
     public static function autoload($class)
     {
-        require_once ROOT.'/vendor/autoload.php';
-        require_once ROOT.'/vendor/symfony/error-handler/Debug.php';
-        require_once ROOT.'/vendor/twig/twig/src/Environment.php';
-        require_once ROOT.'/vendor/twig/twig/src/Loader/FilesystemLoader.php';
+        $root = dirname(__FILE__, 5);
 
-        $dotenv = Dotenv::createImmutable(dirname(__FILE__, 5));
+        require_once $root.'/vendor/autoload.php';
+        require_once $root.'/vendor/symfony/error-handler/Debug.php';
+        require_once $root.'/vendor/twig/twig/src/Environment.php';
+        require_once $root.'/vendor/twig/twig/src/Loader/FilesystemLoader.php';
+
+        $dotenv = Dotenv::createImmutable($root);
         $dotenv->safeLoad();
 
         Debug::enable();

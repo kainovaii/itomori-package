@@ -1,8 +1,8 @@
 <?php
 
-namespace Obsidian\Core;
+namespace Obsidian\Routing;
 
-require_once 'Controller.php';
+use Obsidian\Core\Controller;
 
 class Router extends Controller
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Obsidian\Core;
+namespace Obsidian\Database;
 
 use PDO;
 use PDOException;
 
-class Db extends PDO
+class Connection extends PDO
 {
     private static $instance;
 

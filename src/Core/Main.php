@@ -2,6 +2,7 @@
 
 namespace Obsidian\Core;
 
+use Obsidian\Routing\Router;
 use Symfony\Component\ErrorHandler\Debug;
 
 class Main
@@ -22,8 +23,6 @@ class Main
             require_once 'BaseRoutes.php';
             require_once $this->root.'/src/routes/Api.php';
         }
-
-        require_once 'Router.php';
 
         // Init session
         session_start();

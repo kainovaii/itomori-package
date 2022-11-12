@@ -1,8 +1,8 @@
 <?php
 
-namespace Obsidian\Core;
+namespace Obsidian\Database;
 
-class Model extends Db
+class Model extends Connection
 {
     /**
      * @var mixed table
@@ -12,7 +12,7 @@ class Model extends Db
     /**
      * @var mixed db
      */
-    private $db;
+    private static $db;
 
     /**
      * findAll.
@@ -130,7 +130,7 @@ class Model extends Db
      */
     public function request(string $sql, array $attributs = null)
     {
-        $this->db = Db::getInstance();
+        self::$db = Connection::getInstance();
 
         if ($attributs !== null) {
             $query = $this->db->prepare($sql);
@@ -138,7 +138,7 @@ class Model extends Db
 
             return $query;
         } else {
-            return $this->db->query($sql);
+            return self::$db->query($sql);
         }
     }
 

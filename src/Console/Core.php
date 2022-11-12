@@ -1,6 +1,6 @@
 <?php
 
-namespace Obsidian\Cli;
+namespace Obsidian\Console;
 
 abstract class Core
 {
@@ -94,16 +94,16 @@ abstract class Core
      */
     protected function registerDefaultOptions()
     {
-        $this->options->registerOption(
+        $this->options->setOption(
             'help',
             'Display this help screen and exit immediately.',
             'h'
         );
-        $this->options->registerOption(
+        $this->options->setOption(
             'no-colors',
             'Do not use any colors in output. Useful when piping output to other tools or files.'
         );
-        $this->options->registerOption(
+        $this->options->setOption(
             'loglevel',
             'Minimum level of messages to display. Default is '.$this->colors->wrap($this->logdefault, Colors::C_CYAN).'. '.
             'Valid levels are: debug, info, notice, success, warning, error, critical, alert, emergency.',

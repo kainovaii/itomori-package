@@ -1,6 +1,6 @@
 <?php
 
-namespace Obsidian\Cli;
+namespace Obsidian\Console;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LoggerTrait;

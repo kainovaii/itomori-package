@@ -1,8 +1,8 @@
 <?php
 
-namespace Obsidian\Cli;
+namespace Obsidian\Console;
 
-abstract class Console extends Core
+abstract class Logger extends Core
 {
     /**
      * System is unusable.

@@ -1,0 +1,15 @@
+<?php
+
+use Obsidian\Autoloader;
+use Obsidian\Database\DbCommand;
+
+define('HERE', dirname(__FILE__));
+
+require_once HERE.'/Autoloader.php';
+
+Autoloader::register();
+
+require_once HERE.'/Database/DbCommand.php';
+
+$DatabaseCommand = new DbCommand();
+$DatabaseCommand->run();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Obsidian\Core;
+namespace Obsidian\Auth;
 
 class Auth
 {
