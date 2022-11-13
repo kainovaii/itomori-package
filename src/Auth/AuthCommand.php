@@ -2,8 +2,8 @@
 
 namespace Obsidian\Auth;
 
-use Obsidian\Cli\Logger;
-use Obsidian\Cli\Options;
+use Obsidian\Console\Logger;
+use Obsidian\Console\Options;
 
 class AuthCommand extends Logger
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Obsidian\Database;
+namespace Obsidian\Database\Console;
 
 use Obsidian\Console\Logger;
 use Obsidian\Console\Options;
@@ -9,13 +9,13 @@ class DbCommand extends Logger
 {
     protected function setup(Options $command)
     {
-        $command->setCommand('test', 'The foo command');
-        $command->setOption('model', 'test', 'm', false, 'test');
+        $command->setCommand('make');
+        $command->setOption('migration', 'test', 'migration', false, 'make');
     }
 
     protected function main(Options $command)
     {
-        if ($command->isOption('model')) {
+        if ($command->isOption('migration')) {
             $this->success('success');
         } else {
             $this->error('error');

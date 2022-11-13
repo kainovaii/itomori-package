@@ -1,6 +1,8 @@
 <?php
 
-namespace Obsidian\Database;
+namespace Obsidian\Database\Models;
+
+use Obsidian\Database\Connection;
 
 class Model extends Connection
 {

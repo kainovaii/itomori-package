@@ -1,7 +1,8 @@
 <?php
 
 use Obsidian\Autoloader;
-use Obsidian\Database\DbCommand;
+use Obsidian\Database\Console\BaseCommand;
+use Obsidian\Database\Console\MigrationCommand;
 
 define('HERE', dirname(__FILE__));
 
@@ -9,7 +10,11 @@ require_once HERE.'/Autoloader.php';
 
 Autoloader::register();
 
-require_once HERE.'/Database/DbCommand.php';
+require_once HERE.'/Database/Console/BaseCommand.php';
+require_once HERE.'/Database/Console/MigrationCommand.php';
 
-$DatabaseCommand = new DbCommand();
-$DatabaseCommand->run();
+$BaseCommand = new BaseCommand();
+$BaseCommand->run();
+
+$MigrationCommand = new MigrationCommand();
+$MigrationCommand->run();

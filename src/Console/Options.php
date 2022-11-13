@@ -124,7 +124,7 @@ class Options
      *
      * @return void
      */
-    public function setCommand($command, $help)
+    public function setCommand($command, $help = '')
     {
         if (isset($this->setup[$command])) {
             throw new Exception("Command $command already registered");
@@ -161,7 +161,7 @@ class Options
         ];
 
         if ($short) {
-            if (strlen($short) > 1) {
+            if (strlen($short) > 30) {
                 throw new Exception('Short options should be exactly one ASCII character');
             }
 
@@ -308,7 +308,7 @@ class Options
      *
      * @return bool|string|string[]
      */
-    public function getOpt($option = null, $default = false)
+    public function isOption($option = null, $default = false)
     {
         if ($option === null) {
             return $this->options;
@@ -489,14 +489,5 @@ class Options
         }
 
         return $argv;
-    }
-
-    public function isOption($option)
-    {
-        if (array_key_exists($option, $this->getOpt())) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

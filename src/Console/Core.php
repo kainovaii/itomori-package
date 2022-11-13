@@ -117,10 +117,10 @@ abstract class Core
      */
     protected function handleDefaultOptions()
     {
-        if ($this->options->getOpt('no-colors')) {
+        if ($this->options->isOption('no-colors')) {
             $this->colors->disable();
         }
-        if ($this->options->getOpt('help')) {
+        if ($this->options->isOption('help')) {
             echo $this->options->help();
             exit(0);
         }
@@ -131,7 +131,7 @@ abstract class Core
      */
     protected function setupLogging()
     {
-        $level = $this->options->getOpt('loglevel', $this->logdefault);
+        $level = $this->options->isOption('loglevel', $this->logdefault);
         if (!isset($this->loglevel[$level])) {
             $this->fatal('Unknown log level');
         }
