@@ -47,7 +47,7 @@ abstract class Controller
      *
      * @return void
      */
-    public function view(string $file, array $data = [])
+    public static function view(string $file, array $data = [])
     {
         echo self::$twig->render($file.'.html.twig', $data);
     }
