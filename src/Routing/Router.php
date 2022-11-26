@@ -2,7 +2,7 @@
 
 namespace Obsidian\Routing;
 
-use Obsidian\Core\Controller;
+use Obsidian\Controllers\Controller;
 
 class Router extends Controller
 {

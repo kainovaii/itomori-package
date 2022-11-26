@@ -12,7 +12,7 @@ class MigrationCommand extends BaseCommand
     {
         $console->setCommand($this->command);
         $console->setOption('make:migration', 'make:migration', 'make:migration', false, $this->command);
-        $console->setOption('start:migrate', 'start:migrate', 'start:migrate', false, $this->command);
+        $console->setOption('make:migration:migrate', 'make:migration:migrate', 'make:migration:migrate', false, $this->command);
         $console->setArg('file', 'file', true, $this->command);
     }
 

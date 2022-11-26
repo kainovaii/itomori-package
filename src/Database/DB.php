@@ -14,12 +14,26 @@ class DB extends Connection
      */
     private static $db;
 
+    /**
+     * table.
+     *
+     * @param string table
+     *
+     * @return void
+     */
     public static function table(string $table)
     {
         self::$table = $table;
     }
 
-    public static function create($inputs)
+    /**
+     * create.
+     *
+     * @param array inputs
+     *
+     * @return void
+     */
+    public static function create(array $inputs)
     {
         // Create table whith temp input
         self::request('CREATE TABLE '.self::$table.' (temps INT);');
@@ -35,11 +49,24 @@ class DB extends Connection
         dump('Migration: success');
     }
 
+    /**
+     * delete.
+     *
+     * @return void
+     */
     public static function delete()
     {
         self::request('DROP TABLE '.self::$table);
     }
 
+    /**
+     * request.
+     *
+     * @param string sql
+     * @param array attributs
+     *
+     * @return void
+     */
     public static function request(string $sql, array $attributs = null)
     {
         self::$db = Connection::getInstance();

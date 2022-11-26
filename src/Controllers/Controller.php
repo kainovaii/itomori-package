@@ -1,6 +1,6 @@
 <?php
 
-namespace Obsidian\Core;
+namespace Obsidian\Controllers;
 
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
